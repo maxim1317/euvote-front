@@ -104,7 +104,7 @@ export default {
         } else if (delta == 1) {
           this.playBG("bg_1_0");
         } else if (delta == 0) {
-          this.playBG("default");
+          this.playBG("win");
           this.voter = {
             name: "win",
             points: 0,
@@ -129,6 +129,7 @@ export default {
     },
     playBG(bg) {
       const bgs = {
+        win: "http://localhost:8000/static/audio/win.mp3",
         bg_1_0: "http://localhost:8000/static/audio/bg_1_0.mp3",
         bg_2_1: "http://localhost:8000/static/audio/bg_2_1.mp3",
         bg_5_3: "http://localhost:8000/static/audio/bg_5_3.mp3",
@@ -177,11 +178,11 @@ export default {
       } else {
         return;
       }
-      if (this.bg_audio !== null) {
+      if (this.bg_audio != null) {
         this.bg_audio.pause();
       }
       await this.awaitJingle(audio);
-      if (this.bg_audio !== null) {
+      if (this.bg_audio != null) {
         this.bg_audio.play();
       }
     },
