@@ -90,31 +90,30 @@ export default {
         sum += +element.is_checked;
       });
 
-      this.shuffle()
+      this.shuffle();
 
-      console.log(this.voter)
+      console.log(this.voter);
       if (this.voter.name == "spectators") {
-        var delta = this.participants.length - sum - 1
+        var delta = this.participants.length - sum - 1;
         if (delta > 6 && delta <= 11) {
-          this.playBG("bg_10_6")
+          this.playBG("bg_10_6");
         } else if (delta > 3 && delta <= 6) {
-          this.playBG("bg_5_3")
+          this.playBG("bg_5_3");
         } else if (delta > 1 && delta <= 3) {
-          this.playBG("bg_2_1")
+          this.playBG("bg_2_1");
         } else if (delta == 1) {
-          this.playBG("bg_1_0")
+          this.playBG("bg_1_0");
         } else if (delta == 0) {
-          this.playBG("default")
+          this.playBG("default");
           this.voter = {
             name: "win",
             points: 0,
-            available_votes: []
+            available_votes: [],
           };
         } else {
-          this.playBG("bg_11_inf")
+          this.playBG("bg_11_inf");
         }
       }
-
     },
     shuffle() {
       function compare(a, b) {
@@ -146,38 +145,42 @@ export default {
       if (audio != this.audio_name) {
         if (this.bg_audio != null) {
           this.bg_audio.pause();
-          this.bg_audio.currentTime = 0
+          this.bg_audio.currentTime = 0;
         }
         this.audio_name = audio;
         this.bg_audio = new Audio(audio);
+        this.bg_audio.loop = true;
         this.bg_audio.play();
       }
       if (this.waits_for_audio) {
         if (this.bg_audio != null) {
           this.bg_audio.pause();
-          this.bg_audio.currentTime = 0
+          this.bg_audio.currentTime = 0;
         }
         this.bg_audio = new Audio(this.audio_name);
         this.bg_audio.play();
+        this.bg_audio.loop = true;
         this.waits_for_audio = false;
       }
     },
     awaitJingle(audio) {
-      return new Promise(res=>{
-        audio.play()
-        audio.onended = res
-      })
+      return new Promise((res) => {
+        audio.play();
+        audio.onended = res;
+      });
     },
     async playJingle(type) {
       if (type == "100") {
-        var audio = new Audio("http://localhost:8000/static/audio/jingle_100.mp3")
+        var audio = new Audio("http://localhost:8000/static/audio/jingle_100.mp3");
       } else if (type == "75") {
-        audio = new Audio("http://localhost:8000/static/audio/jingle_75.mp3")
-      } else {return}
+        audio = new Audio("http://localhost:8000/static/audio/jingle_75.mp3");
+      } else {
+        return;
+      }
       if (this.bg_audio !== null) {
         this.bg_audio.pause();
       }
-      await this.awaitJingle(audio)
+      await this.awaitJingle(audio);
       if (this.bg_audio !== null) {
         this.bg_audio.play();
       }
@@ -194,7 +197,7 @@ export default {
         this.voter = {
           name: "win",
           points: 0,
-          available_votes: []
+          available_votes: [],
         };
       }
       this.names = [];

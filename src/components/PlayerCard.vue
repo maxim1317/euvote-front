@@ -107,7 +107,7 @@ export default {
       var i = participants.findIndex((element) => element.name == this.participant.name);
       participants[i] = par;
       this.$emit("update:participants", participants);
-      this.$emit("checked")
+      this.$emit("checked");
     },
     updateVote(selected) {
       if (isNaN(selected)) {
@@ -116,16 +116,16 @@ export default {
       }
       if (selected != null) {
         console.log("111");
-        var old = this.participant.points
+        var old = this.participant.points;
         var new_par = this.participant;
         new_par.points = this.participant.points + selected - this.prev_vote;
-        console.log("jingle", old, new_par.points)
-        if(old < 100 && new_par.points >= 100) {
-          console.log("jingle 100")
-          this.$emit("jingle", "100")
-        } else if(old < 75 && new_par.points >= 75) {
-          console.log("jingle 75")
-          this.$emit("jingle", "75")
+        console.log("jingle", old, new_par.points);
+        if (old < 100 && new_par.points >= 100) {
+          console.log("jingle 100");
+          this.$emit("jingle", "100");
+        } else if (old < 75 && new_par.points >= 75) {
+          console.log("jingle 75");
+          this.$emit("jingle", "75");
         }
         this.$emit("update:participant", new_par);
         this.prev_vote = selected;
