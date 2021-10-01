@@ -1,7 +1,7 @@
 <template>
   <div v-if="participants != null" class="">
     <div class="row align-items-center align-middle" style="padding: 0.3vh">
-      <div class="col-2">
+      <div class="col-1" style="margin-right: 10px">
         <svg
           v-if="participant.avatar === null"
           width="6vh"
@@ -15,7 +15,7 @@
           class="img-fluid float-start"
         />
       </div>
-      <div class="col">
+      <div class="col" style="margin-right: -100px">
         <p class="h4">{{ participant.name }}</p>
       </div>
       <div v-if="voter.name != 'win'" class="col-3">
