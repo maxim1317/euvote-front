@@ -1,17 +1,17 @@
 <template>
   <div v-if="participants != null" class="">
     <div class="row align-items-center align-middle" style="padding: 0.3vh">
-      <div class="col-1" style="margin-right: 10px">
+      <div class="col-1" style="margin-right: 19px">
         <svg
           v-if="participant.avatar === null"
-          width="6vh"
-          height="6vh"
+          width="65px"
+          height="65px"
           :data-jdenticon-value="participant.name"
         ></svg>
         <img
           v-else
           :src="participant.avatar"
-          style="max-height: 6vh; max-width: 6vh"
+          style="max-height: 65px; max-width: 65px"
           class="img-fluid float-start"
         />
       </div>
@@ -120,12 +120,14 @@ export default {
         var new_par = this.participant;
         new_par.points = this.participant.points + selected - this.prev_vote;
         console.log("jingle", old, new_par.points);
-        if (old < 100 && new_par.points >= 100) {
+        if (selected >= 100 && !this.participant.j_100_played) {
           console.log("jingle 100");
           this.$emit("jingle", "100");
-        } else if (old < 75 && new_par.points >= 75) {
+          new_par.j_100_played = true;
+        } else if (selected >= 75 && !this.participant.j_75_played) {
           console.log("jingle 75");
           this.$emit("jingle", "75");
+          new_par.j_75_played = true;
         }
         this.$emit("update:participant", new_par);
         this.prev_vote = selected;
