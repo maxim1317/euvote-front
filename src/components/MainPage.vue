@@ -23,8 +23,9 @@
     </transition-group>
     <div class="col text-light selector">
       <div class="card-body">
-        <br />
-        <h1 class="text-center">DiscordVision</h1>
+        <div class="row">
+          <img src="http://localhost:8000/static/logo/logo.png" class="img-fluid m-3">
+        </div>
         <div class="row">
           <div class="col-10">
             <select class="form-select form-select-lg" @change="updatePlayer">

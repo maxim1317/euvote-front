@@ -1,6 +1,6 @@
 <template>
   <div v-if="participants != null" class="">
-    <div class="row align-items-center align-middle" style="padding: 0.3vh">
+    <div class="row align-items-center align-middle p-1">
       <div class="col-1" style="margin-right: 19px">
         <svg
           v-if="participant.avatar === null"
@@ -120,11 +120,11 @@ export default {
         var new_par = this.participant;
         new_par.points = this.participant.points + selected - this.prev_vote;
         console.log("jingle", old, new_par.points);
-        if (selected >= 100 && !this.participant.j_100_played) {
+        if (selected >= 175 && !this.participant.j_100_played) {
           console.log("jingle 100");
           this.$emit("jingle", "100");
           new_par.j_100_played = true;
-        } else if (selected >= 75 && !this.participant.j_75_played) {
+        } else if (selected >= 125 && !this.participant.j_75_played) {
           console.log("jingle 75");
           this.$emit("jingle", "75");
           new_par.j_75_played = true;
