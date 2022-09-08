@@ -78,7 +78,7 @@ export default {
     return {
       version: null,
       link: null,
-      selectedVote: '',
+      selectedVote: null,
       prev_vote: 0,
     };
   },
@@ -136,7 +136,8 @@ export default {
         console.log("111");
         var old = this.participant.points;
         var new_par = this.participant;
-        new_par.points = this.participant.points + selected - this.prev_vote;
+        console.log("wtf", this.participant.points, selected, this.prev_vote);
+        new_par.points = this.participant.points + Number(selected) - Number(this.prev_vote);
         console.log("jingle", old, new_par.points);
         if (selected >= 175 && !this.participant.j_100_played) {
           console.log("jingle 100");
