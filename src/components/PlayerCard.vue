@@ -1,30 +1,30 @@
 <template>
-    <div class="left-flex p-0 m-0">
+    <div class="left-flex p-0 m-0 px-2" style="height:55px">
       <div
         class="centered bg-success fs-4 text-white fw-bold me-2"
-        style="min-height:50px!important;min-width:50px!important"
+        style="min-height:45px!important;min-width:45px!important"
       >
         {{ index }}
       </div>
-      <div class="p-0 m-0 bg-white me-2 centered" style="min-width:50px;min-height:50px">
+      <div class="p-0 m-0 bg-white me-2 centered" style="min-width:45px;min-height:45px">
         <svg
           v-if="participant.avatar === null"
-          width="50px"
-          height="50px"
+          width="45px"
+          height="45px"
           class="p-0 m-0"
           :data-jdenticon-value="participant.name"
         ></svg>
         <img
           v-else
           :src="participant.avatar"
-          style="max-height: 50px; max-width: 50px"
+          style="max-height: 45px; max-width: 45px"
           class="img-fluid float-start p-0 m-0"
         />
       </div>
-        <!-- style="height:50px;min-width:240px!important;max-width:240px!important" -->
+        <!-- style="height:45px;min-width:240px!important;max-width:240px!important" -->
       <div
         class="bg-danger left-flex px-3 text-white fw-bold player-nickname"
-        style="height:50px;"
+        style="height:45px;"
       >
 
         <span class="fs-3 text-nowrap longtext">{{ participant.name }}</span>
@@ -32,11 +32,11 @@
       <div
         class="bg-danger"
         v-if="voter.name != 'win'"
-        style="max-height:50px!important"
+        style="max-height:45px!important"
       >
         <select
           class="form-select form-select-lg shadow-none rounded-0 border-0 text-dark"
-          style="height:50px;min-width:100px"
+          style="height:45px;min-width:70px;max-width:70px"
           v-if="voter.name != 'spectators'"
           @update:model-value="updateVote"          
           v-model="selectedVote"
@@ -62,7 +62,7 @@
       </div>
       <div
         class="centered ms-2 bg-white"
-        style="min-width:50px;min-height:50px"
+        style="min-width:45px;min-height:45px"
       >
         <span class="fs-4">
           {{ participant.points }}

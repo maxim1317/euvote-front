@@ -1,7 +1,7 @@
 <template>
   <div v-if="game" class="container-flex px-0 pt-3" style="position:relative">
 
-    <div class="centered" style="position:relative">
+    <div class="centered px-3 pt-3" style="position:relative">
       <div class="pb-3">
         <div class="">
           <div class="w-100">
@@ -10,7 +10,7 @@
               class="img-fluid logo"
             >
           </div>
-          <div class="left-flex mt-3">
+          <div class="left-flex mt-5">
             <select
               class="form-select form-select-lg"
               @change="updatePlayer"
@@ -43,32 +43,32 @@
     </div>
 
 
-    <div class="w-100" style="position:relative">
-      <div class="centered w-100">
-    <transition-group
-      name="flip-list"
-      tag="ul"
-      class="content-pane m-0 w-100"
-    >
-      <li
-        class="p-0 m-0 mb-2 player-card"
-        v-for="(participant, index) in participant_list"
-        :key="participant.name"
-        :class="{ 'bg-warning': participant.name == player_name }"
-        :style="{ opacity: 0.7 + 0.3 * (1 - +participant.is_checked) }"        
-      >
-        <PlayerCard
-          :index="index"
-          :participant="participant"
-          :player_name="player_name"
-          v-model:voter="voter"
-          v-model:votes="vote_buff"
-          :participants="participants"
-          @checked="checked"
-          @jingle="playJingle"
-        />
-      </li>
-    </transition-group>
+    <div class="w-100 mt-3" style="position:relative">
+      <div class="centered w-100" style="position:relative">
+        <transition-group
+          name="flip-list"
+          tag="ul"
+          class="w-100 content-pane"
+        >
+          <li
+            class="p-0 m-0 mb-2 player-card"
+            v-for="(participant, index) in participant_list"
+            :key="participant.name"
+            :class="{ 'bg-warning': participant.name == player_name }"
+            :style="{ opacity: 0.7 + 0.3 * (1 - +participant.is_checked) }"        
+          >
+            <PlayerCard
+              :index="index"
+              :participant="participant"
+              :player_name="player_name"
+              v-model:voter="voter"
+              v-model:votes="vote_buff"
+              :participants="participants"
+              @checked="checked"
+              @jingle="playJingle"
+            />
+          </li>
+        </transition-group>
       </div>
     </div>
 
@@ -343,15 +343,16 @@ option {
   top:0;
   left:0;
   /* max-height:100%; */
-  max-height: calc(100vh - 280px);
-  max-width: 100vw;
+  max-height: calc(100vh - 330px);
+  /* max-width: 100vw; */
   display: flex;
-  padding-top:10px;
-  padding-left:5px;
+  padding-top:0px;
+  padding-left:0px;
   flex-wrap: wrap;
   overflow-y: auto;
   align-content: flex-start;
   justify-content: flex-start;
+  gap: 12px;  
   /* background-color: rgb(236, 236, 236); */
 }
 
@@ -367,11 +368,21 @@ option {
 
 }
 
+@media (max-width:1400px) {
+  .content-pane {
+    align-content: flex-start;
+    justify-content: flex-start;    
+    /* left:0; */
+    /* max-width:1000px; */
+  }
+}
 
 
 @media (max-width:900px) {
   .content-pane {
     max-width: 100%;
+    align-content: center;
+    justify-content: center;    
   }
   .player-card {
     margin-right:0;
@@ -381,7 +392,7 @@ option {
 
 @media (min-width:900px) {
   .player-card {
-    margin-right:50px!important;
+    /* margin-right:50px!important; */
   }
 }
 
