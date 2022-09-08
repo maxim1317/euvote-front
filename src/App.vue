@@ -21,4 +21,36 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-flex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.right-flex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.bg-danger {
+  background-color: #f74f50!important;
+}
+
+.bg-success {
+  background-color: #839d89!important;
+}
+
+.btn-success {
+  background-color: #839d89!important;
+}
+
+
 </style>

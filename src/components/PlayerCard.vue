@@ -1,35 +1,53 @@
 <template>
-    <div class="row align-items-center align-middle p-0 m-0 opacity-25">
-      <div class="col-1 p-0 m-0">
+    <div class="left-flex p-0 m-0">
+      <div
+        class="centered bg-success fs-4 text-white fw-bold me-2"
+        style="min-height:50px!important;min-width:50px!important"
+      >
+        {{ index }}
+      </div>
+      <div class="p-0 m-0 bg-white me-2 centered" style="min-width:50px;min-height:50px">
         <svg
           v-if="participant.avatar === null"
-          width="65px"
-          height="65px"
+          width="50px"
+          height="50px"
           class="p-0 m-0"
           :data-jdenticon-value="participant.name"
         ></svg>
         <img
           v-else
           :src="participant.avatar"
-          style="max-height: 65px; max-width: 65px"
+          style="max-height: 50px; max-width: 50px"
           class="img-fluid float-start p-0 m-0"
         />
       </div>
-      <div class="col" style="margin-right: -100px">
-        <p class="h4">{{ participant.name }}</p>
+        <!-- style="height:50px;min-width:240px!important;max-width:240px!important" -->
+      <div
+        class="bg-danger left-flex px-3 text-white fw-bold player-nickname"
+        style="height:50px;"
+      >
+
+        <span class="fs-3 text-nowrap longtext">{{ participant.name }}</span>
       </div>
-      <div v-if="voter.name != 'win'" class="col-3">
-        <multiselect
+      <div
+        class="bg-danger"
+        v-if="voter.name != 'win'"
+        style="max-height:50px!important"
+      >
+        <select
+          class="form-select form-select-lg shadow-none rounded-0 border-0 text-dark"
+          style="height:50px;min-width:100px"
           v-if="voter.name != 'spectators'"
+          @update:model-value="updateVote"          
           v-model="selectedVote"
-          :options="voter.available_votes"
-          :close-on-select="true"
-          :clear-on-select="false"
-          :show-labels="false"
-          placeholder="0"
-          @update:model-value="updateVote"
         >
-        </multiselect>
+          <option class="text-dark" style="display: none" disabled value="">
+            Votes
+          </option>
+          <option v-for="vote in voter.available_votes" :key="vote">
+            {{ Number(vote) }}
+          </option>
+        </select>
         <div v-else class="row">
           <input
             class="form-control col"
@@ -37,34 +55,35 @@
             v-model="selectedVote"
             @change="updateVote"
           />
-          <button type="button" class="btn btn-outline-success col-3" @click="checkOut">
+          <button type="button" class="btn btn-outline-success" @click="checkOut">
             <i class="fa fa-check"></i>
           </button>
         </div>
       </div>
-      <div class="col-2">
-        <p class="h4" style="text-align: right; padding-right: 12px">{{ participant.points }}</p>
+      <div
+        class="centered ms-2 bg-white"
+        style="min-width:50px;min-height:50px"
+      >
+        <span class="fs-4">
+          {{ participant.points }}
+        </span>
       </div>
     </div>
 </template>
 
 <script>
-import Multiselect from "@suadelabs/vue3-multiselect";
-
 export default {
   name: "PlayerCard",
-  components: {
-    Multiselect,
-  },
   data() {
     return {
       version: null,
       link: null,
-      selectedVote: null,
+      selectedVote: '',
       prev_vote: 0,
     };
   },
   props: {
+    index: Number,
     participants: Object,
     participant: Object,
     player_name: String,
@@ -181,25 +200,32 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style src="./vue3-multiselect.css"></style>
 <style scoped>
-.card {
-  margin-bottom: 1vh;
-  margin-right: 0vh;
-  margin-left: 1vh;
-  min-height: 7em;
-  max-height: 7em;
-}
-
-.h4 {
-  font-size: 1.8em;
-}
-
 .bg-dark {
   background-color: #2c2f33;
 }
 
-.h4 {
-  margin-bottom: -1px;
+.longtext {
+  max-width: 280px!important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+.player-nickname {
+  min-width:300px;
+  max-width:300px;
+}
+
+@media (max-width:500px) {
+  .player-nickname {
+    min-width:200px;
+    max-width:200px;
+  }
+  .longtext {
+    max-width:170px;
+  }
+}
+
+
 </style>

@@ -1,52 +1,82 @@
 <template>
-  <div v-if="game" class="row container-fluid" style="margin-top: 10px">
-    <transition-group class="col-8" name="flip-list" tag="ul">
-      <li class="col-12" v-for="participant in participant_list" :key="participant.name">
-        <div
-          class="p-1"
-          :class="{ 'bg-warning': participant.name == player_name }"
-          :style="{ opacity: 0.7 + 0.3 * (1 - +participant.is_checked) }"
-        >
-          <!-- {{voter}} -->
-          <PlayerCard
-            :participant="participant"
-            :player_name="player_name"
-            v-model:voter="voter"
-            v-model:votes="vote_buff"
-            :participants="participants"
-            @checked="checked"
-            @jingle="playJingle"
-          >
-          </PlayerCard>
-        </div>
-      </li>
-    </transition-group>
-    <div class="col text-light selector">
-      <div class="card-body">
-        <div class="row">
-          <img src="http://localhost:8000/static/logo/logo.png" class="img-fluid m-3">
-        </div>
-        <div class="row">
-          <div class="col-10">
-            <select class="form-select form-select-lg" @change="updatePlayer">
+  <div v-if="game" class="container-flex px-0 pt-3" style="position:relative">
+
+    <div class="centered" style="position:relative">
+      <div class="pb-3">
+        <div class="">
+          <div class="w-100">
+            <img
+              src="http://192.168.0.67:8000/static/logo/logo.png"
+              class="img-fluid logo"
+            >
+          </div>
+          <div class="left-flex mt-3">
+            <select
+              class="form-select form-select-lg"
+              @change="updatePlayer"
+            >
               <option value="" selected disabled>Please select a voter</option>
               <option v-for="name in names" :key="name.name">
                 {{ name.name }}
               </option>
             </select>
+            <button
+              type="button"
+              class="btn btn-light centered ms-2"
+              style="height:48px;min-width:48px!important"
+              @click="resetGame"
+            >
+              <i class="fa fa-refresh fs-3" aria-hidden="true"></i>
+            </button>
           </div>
-          <button type="button" class="col btn btn-outline-warning" @click="resetGame">
-            <i class="fa fa-refresh" aria-hidden="true"></i>
+        </div>
+        <div v-if="voter.name == 'win'" class="w-100 mt-2">
+          <button
+            type="button"
+            class="btn btn-success w-100 fs-5"
+            @click="finishGame"
+          >
+            Finish Game
           </button>
         </div>
       </div>
-      <div v-if="voter.name == 'win'" class="row" style="padding: 15px">
-        <button type="button" class="btn btn-success" @click="finishGame">Finish Game</button>
+    </div>
+
+
+    <div class="w-100" style="position:relative">
+      <div class="centered w-100">
+    <transition-group
+      name="flip-list"
+      tag="ul"
+      class="content-pane m-0 w-100"
+    >
+      <li
+        class="p-0 m-0 mb-2 player-card"
+        v-for="(participant, index) in participant_list"
+        :key="participant.name"
+        :class="{ 'bg-warning': participant.name == player_name }"
+        :style="{ opacity: 0.7 + 0.3 * (1 - +participant.is_checked) }"        
+      >
+        <PlayerCard
+          :index="index"
+          :participant="participant"
+          :player_name="player_name"
+          v-model:voter="voter"
+          v-model:votes="vote_buff"
+          :participants="participants"
+          @checked="checked"
+          @jingle="playJingle"
+        />
+      </li>
+    </transition-group>
       </div>
     </div>
 
-    <!-- </div> -->
+
   </div>
+
+
+
 </template>
 
 <script>
@@ -130,13 +160,13 @@ export default {
     },
     playBG(bg) {
       const bgs = {
-        win: "http://localhost:8000/static/audio/win.mp3",
-        bg_1_0: "http://localhost:8000/static/audio/bg_1_0.mp3",
-        bg_2_1: "http://localhost:8000/static/audio/bg_2_1.mp3",
-        bg_5_3: "http://localhost:8000/static/audio/bg_5_3.mp3",
-        bg_10_6: "http://localhost:8000/static/audio/bg_10_6.mp3",
-        bg_11_inf: "http://localhost:8000/static/audio/bg_10_6.mp3",
-        default: "http://localhost:8000/static/audio/bg.mp3",
+        win: "http://192.168.0.67:8000/static/audio/win.mp3",
+        bg_1_0: "http://192.168.0.67:8000/static/audio/bg_1_0.mp3",
+        bg_2_1: "http://192.168.0.67:8000/static/audio/bg_2_1.mp3",
+        bg_5_3: "http://192.168.0.67:8000/static/audio/bg_5_3.mp3",
+        bg_10_6: "http://192.168.0.67:8000/static/audio/bg_10_6.mp3",
+        bg_11_inf: "http://192.168.0.67:8000/static/audio/bg_10_6.mp3",
+        default: "http://192.168.0.67:8000/static/audio/bg.mp3",
       };
       var audio = null;
       if (bgs[bg] == undefined) {
@@ -173,9 +203,9 @@ export default {
     },
     async playJingle(type) {
       if (type == "100") {
-        var audio = new Audio("http://localhost:8000/static/audio/jingle_100.mp3");
+        var audio = new Audio("http://192.168.0.67:8000/static/audio/jingle_100.mp3");
       } else if (type == "75") {
-        audio = new Audio("http://localhost:8000/static/audio/jingle_75.mp3");
+        audio = new Audio("http://192.168.0.67:8000/static/audio/jingle_75.mp3");
       } else {
         return;
       }
@@ -210,7 +240,7 @@ export default {
       console.log(this.game);
     },
     loadGame() {
-      var url = new URL("http://localhost:8000/game");
+      var url = new URL("http://192.168.0.67:8000/game");
       fetch(url, { method: "GET" })
         .then((response) => response.json())
         .then((data) => this.unpackGame(data));
@@ -225,7 +255,7 @@ export default {
 
       console.log("saving game");
       console.log(game);
-      var url = new URL("http://localhost:8000/game");
+      var url = new URL("http://192.168.0.67:8000/game");
       fetch(url, {
         method: "POST",
         headers: {
@@ -252,7 +282,7 @@ export default {
       // alert(this.voter)
     },
     resetGame() {
-      var url = new URL("http://localhost:8000/reset");
+      var url = new URL("http://192.168.0.67:8000/reset");
       fetch(url, {
         method: "POST",
       }).then((response) => console.log(response.json()), this.loadGame());
@@ -264,18 +294,17 @@ export default {
 };
 </script>
 
-<style src="./vue3-multiselect.css"></style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 ul {
   list-style-type: none;
-  padding: 0;
+  /* padding: 0;
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2;
   column-gap: 1em;
   margin-top: 1em;
-  margin-bottom: 1em;
+  margin-bottom: 1em; */
 }
 .card {
   margin-bottom: 1vh;
@@ -286,35 +315,74 @@ ul {
   font-family: "GothamBook";
 }
 
-.form-select {
+/* .form-select {
   font-family: "GothamBook";
 }
 option {
   font-family: "GothamBook";
-}
+} */
 
 @font-face {
   font-family: "EC";
-  src: url("http://localhost:8000/static/fonts/ec.ttf");
-}
-h1 {
-  color: #fff;
-  font-size: 4em;
-  font-family: "EC";
-}
-
-.solid-card {
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
-  break-inside: avoid;
-}
-
-.selector {
-  min-height: 90vh;
-  margin-left: 2vh;
+  src: url("http://192.168.0.67:8000/static/fonts/ec.ttf");
 }
 
 .flip-list-move {
   transition: transform 0.4s ease;
 }
+
+.container {
+  position:relative;
+  min-height: 87vh;
+  max-height: 87vh;
+}
+
+
+.content-pane {
+  position: absolute;
+  top:0;
+  left:0;
+  /* max-height:100%; */
+  max-height: calc(100vh - 280px);
+  max-width: 100vw;
+  display: flex;
+  padding-top:10px;
+  padding-left:5px;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  align-content: flex-start;
+  justify-content: flex-start;
+  /* background-color: rgb(236, 236, 236); */
+}
+
+@media (min-width:900px) {
+  .content-pane {
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+  }
+  .logo {
+    max-width: 600px!important;
+  }
+
+}
+
+
+
+@media (max-width:900px) {
+  .content-pane {
+    max-width: 100%;
+  }
+  .player-card {
+    margin-right:0;
+  }  
+
+}
+
+@media (min-width:900px) {
+  .player-card {
+    margin-right:50px!important;
+  }
+}
+
 </style>
