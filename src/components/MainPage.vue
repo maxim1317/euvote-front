@@ -380,7 +380,7 @@ option {
 @media (max-width:900px) {
   .content-pane {
     max-width: 100%;
-    align-content: center;
+    /* align-content: center; */
     justify-content: center;    
   }
   .player-card {
@@ -390,10 +390,18 @@ option {
 }
 
 @media (max-width:500px) {
-  .player-card {
-    align-content: flex-start;
-    justify-content: flex-start;
+  .content-pane {
+    flex-direction: row;
     gap: 0px;
+    padding:0;
+    top:0px;
+    max-height: calc(100vh - 300px);
+  }
+
+
+  .player-card {
+    /* align-content: flex-start; */
+    /* justify-content: flex-start; */
     padding:0;
     max-width:100%;
     /* margin-right:25px!important; */
