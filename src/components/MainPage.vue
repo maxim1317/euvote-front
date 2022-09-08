@@ -371,9 +371,8 @@ option {
 @media (max-width:1400px) {
   .content-pane {
     align-content: flex-start;
-    justify-content: flex-start;    
+    justify-content: flex-start;
     /* left:0; */
-    /* max-width:1000px; */
   }
 }
 
@@ -390,9 +389,14 @@ option {
 
 }
 
-@media (min-width:900px) {
+@media (max-width:500px) {
   .player-card {
-    /* margin-right:50px!important; */
+    align-content: flex-start;
+    justify-content: flex-start;
+    gap: 0px;
+    padding:0;
+    max-width:100%;
+    /* margin-right:25px!important; */
   }
 }
 

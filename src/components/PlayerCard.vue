@@ -36,7 +36,7 @@
       >
         <select
           class="form-select form-select-lg shadow-none rounded-0 border-0 text-dark"
-          style="height:45px;min-width:70px;max-width:70px"
+          style="height:45px;min-width:80px;max-width:80px"
           v-if="voter.name != 'spectators'"
           @update:model-value="updateVote"          
           v-model="selectedVote"
