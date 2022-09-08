@@ -4,7 +4,7 @@
         class="centered bg-success fs-4 text-white fw-bold me-2"
         style="min-height:45px!important;min-width:45px!important"
       >
-        {{ index }}
+        {{ index + 1 }}
       </div>
       <div class="p-0 m-0 bg-white me-2 centered" style="min-width:45px;min-height:45px">
         <svg
