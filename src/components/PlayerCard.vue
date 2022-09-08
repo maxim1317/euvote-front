@@ -1,18 +1,18 @@
 <template>
-  <div v-if="participants != null" class="">
-    <div class="row align-items-center align-middle p-1">
-      <div class="col-1" style="margin-right: 19px">
+    <div class="row align-items-center align-middle p-0 m-0 opacity-25">
+      <div class="col-1 p-0 m-0">
         <svg
           v-if="participant.avatar === null"
           width="65px"
           height="65px"
+          class="p-0 m-0"
           :data-jdenticon-value="participant.name"
         ></svg>
         <img
           v-else
           :src="participant.avatar"
           style="max-height: 65px; max-width: 65px"
-          class="img-fluid float-start"
+          class="img-fluid float-start p-0 m-0"
         />
       </div>
       <div class="col" style="margin-right: -100px">
@@ -46,7 +46,6 @@
         <p class="h4" style="text-align: right; padding-right: 12px">{{ participant.points }}</p>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

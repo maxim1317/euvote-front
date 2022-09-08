@@ -3,7 +3,7 @@
     <transition-group class="col-8" name="flip-list" tag="ul">
       <li class="col-12" v-for="participant in participant_list" :key="participant.name">
         <div
-          class="solid-card card d-flex"
+          class="p-1"
           :class="{ 'bg-warning': participant.name == player_name }"
           :style="{ opacity: 0.7 + 0.3 * (1 - +participant.is_checked) }"
         >
