@@ -6,7 +6,7 @@
         <div class="">
           <div class="w-100">
             <img
-              src="http://192.168.0.67:8000/static/logo/logo.png"
+              src="http://127.0.0.1:8000/static/logo/logo.png"
               class="img-fluid logo"
             >
           </div>
@@ -55,7 +55,7 @@
             v-for="(participant, index) in participant_list"
             :key="participant.name"
             :class="{ 'bg-warning': participant.name == player_name }"
-            :style="{ opacity: 0.7 + 0.3 * (1 - +participant.is_checked) }"        
+            :style="{ opacity: 0.7 + 0.3 * (1 - +participant.is_checked) }"
           >
             <PlayerCard
               :index="index"
@@ -126,8 +126,10 @@ export default {
       console.log(this.voter);
       if (this.voter.name == "spectators") {
         var delta = this.participants.length - sum - 1;
-        if (delta > 6 && delta <= 11) {
-          this.playBG("bg_10_6");
+        if (delta > 9 && delta <= 11) {
+          this.playBG("bg_10_8");
+        } else if (delta > 6 && delta <= 9) {
+          this.playBG("bg_8_6");
         } else if (delta > 3 && delta <= 6) {
           this.playBG("bg_5_3");
         } else if (delta > 1 && delta <= 3) {
@@ -160,13 +162,13 @@ export default {
     },
     playBG(bg) {
       const bgs = {
-        win: "http://192.168.0.67:8000/static/audio/win.mp3",
-        bg_1_0: "http://192.168.0.67:8000/static/audio/bg_1_0.mp3",
-        bg_2_1: "http://192.168.0.67:8000/static/audio/bg_2_1.mp3",
-        bg_5_3: "http://192.168.0.67:8000/static/audio/bg_5_3.mp3",
-        bg_10_6: "http://192.168.0.67:8000/static/audio/bg_10_6.mp3",
-        bg_11_inf: "http://192.168.0.67:8000/static/audio/bg_10_6.mp3",
-        default: "http://192.168.0.67:8000/static/audio/bg.mp3",
+        win: "http://127.0.0.1:8000/static/audio/win.mp3",
+        bg_1_0: "http://127.0.0.1:8000/static/audio/bg_1_0.mp3",
+        bg_2_1: "http://127.0.0.1:8000/static/audio/bg_2_1.mp3",
+        bg_5_3: "http://127.0.0.1:8000/static/audio/bg_5_3.mp3",
+        bg_10_6: "http://127.0.0.1:8000/static/audio/bg_10_6.mp3",
+        bg_11_inf: "http://127.0.0.1:8000/static/audio/bg_10_6.mp3",
+        default: "http://127.0.0.1:8000/static/audio/bg.mp3",
       };
       var audio = null;
       if (bgs[bg] == undefined) {
@@ -203,9 +205,9 @@ export default {
     },
     async playJingle(type) {
       if (type == "100") {
-        var audio = new Audio("http://192.168.0.67:8000/static/audio/jingle_100.mp3");
+        var audio = new Audio("http://127.0.0.1:8000/static/audio/jingle_100.mp3");
       } else if (type == "75") {
-        audio = new Audio("http://192.168.0.67:8000/static/audio/jingle_75.mp3");
+        audio = new Audio("http://127.0.0.1:8000/static/audio/jingle_75.mp3");
       } else {
         return;
       }
@@ -240,7 +242,7 @@ export default {
       console.log(this.game);
     },
     loadGame() {
-      var url = new URL("http://192.168.0.67:8000/game");
+      var url = new URL("http://127.0.0.1:8000/game");
       fetch(url, { method: "GET" })
         .then((response) => response.json())
         .then((data) => this.unpackGame(data));
@@ -255,7 +257,7 @@ export default {
 
       console.log("saving game");
       console.log(game);
-      var url = new URL("http://192.168.0.67:8000/game");
+      var url = new URL("http://127.0.0.1:8000/game");
       fetch(url, {
         method: "POST",
         headers: {
@@ -282,7 +284,7 @@ export default {
       // alert(this.voter)
     },
     resetGame() {
-      var url = new URL("http://192.168.0.67:8000/reset");
+      var url = new URL("http://127.0.0.1:8000/reset");
       fetch(url, {
         method: "POST",
       }).then((response) => console.log(response.json()), this.loadGame());
@@ -324,7 +326,7 @@ option {
 
 @font-face {
   font-family: "EC";
-  src: url("http://192.168.0.67:8000/static/fonts/ec.ttf");
+  src: url("http://127.0.0.1:8000/static/fonts/ec.ttf");
 }
 
 .flip-list-move {
@@ -352,7 +354,7 @@ option {
   overflow-y: auto;
   align-content: flex-start;
   justify-content: flex-start;
-  gap: 12px;  
+  gap: 12px;
   /* background-color: rgb(236, 236, 236); */
 }
 
@@ -381,11 +383,11 @@ option {
   .content-pane {
     max-width: 100%;
     /* align-content: center; */
-    justify-content: center;    
+    justify-content: center;
   }
   .player-card {
     margin-right:0;
-  }  
+  }
 
 }
 
