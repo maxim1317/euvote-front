@@ -1,74 +1,71 @@
 <template>
-    <div class="left-flex p-0 m-0 px-2" style="height:55px">
-      <div
-        class="centered bg-success fs-4 text-white fw-bold me-2"
-        style="min-height:45px!important;min-width:45px!important"
+  <div class="left-flex p-0 m-0 px-2" style="height: 55px">
+    <div
+      class="centered bg-success fs-4 text-white fw-bold me-1"
+      style="min-height: 45px !important; min-width: 45px !important"
+    >
+      {{ index + 1 }}
+    </div>
+    <div class="p-0 m-0 bg-white me-2 centered" style="min-width: 45px; min-height: 45px">
+      <svg
+        v-if="participant.avatar === null"
+        width="45px"
+        height="45px"
+        class="p-0 m-0"
+        :data-jdenticon-value="participant.name"
+      ></svg>
+      <img
+        v-else
+        :src="participant.avatar"
+        style="max-height: 45px; max-width: 45px"
+        class="img-fluid float-start p-0 m-0"
+      />
+    </div>
+    <!-- style="height:45px;min-width:240px!important;max-width:240px!important" -->
+    <div class="bg-danger left-flex px-3 text-white fw-bold player-nickname" style="height: 45px">
+      <span class="fs-3 text-nowrap longtext">{{ participant.name }}</span>
+    </div>
+    <div class="bg-danger" v-if="voter.name != 'win'" style="max-height: 45px !important">
+      <select
+        class="form-select form-select-lg shadow-none rounded-0 border-0 text-dark"
+        style="height: 45px; min-width: 80px; max-width: 80px"
+        v-if="voter.name != 'spectators'"
+        @update:model-value="updateVote"
+        v-model="selectedVote"
       >
-        {{ index + 1 }}
-      </div>
-      <div class="p-0 m-0 bg-white me-2 centered" style="min-width:45px;min-height:45px">
-        <svg
-          v-if="participant.avatar === null"
-          width="45px"
-          height="45px"
-          class="p-0 m-0"
-          :data-jdenticon-value="participant.name"
-        ></svg>
-        <img
-          v-else
-          :src="participant.avatar"
-          style="max-height: 45px; max-width: 45px"
-          class="img-fluid float-start p-0 m-0"
-        />
-      </div>
-        <!-- style="height:45px;min-width:240px!important;max-width:240px!important" -->
+        <option class="text-dark" style="display: none" disabled value="">Votes</option>
+        <option v-for="vote in voter.available_votes" :key="vote">
+          {{ Number(vote) }}
+        </option>
+      </select>
       <div
-        class="bg-danger left-flex px-3 text-white fw-bold player-nickname"
-        style="height:45px;"
+        class="row shadow-none rounded-0 border-0 text-dark"
+        style="height: 45px; min-width: 150px; max-width: 150px"
+        v-else
       >
-
-        <span class="fs-3 text-nowrap longtext">{{ participant.name }}</span>
-      </div>
-      <div
-        class="bg-danger"
-        v-if="voter.name != 'win'"
-        style="max-height:45px!important"
-      >
-        <select
-          class="form-select form-select-lg shadow-none rounded-0 border-0 text-dark"
-          style="height:45px;min-width:80px;max-width:80px"
-          v-if="voter.name != 'spectators'"
-          @update:model-value="updateVote"          
+        <input
+          class="col form-control"
+          type="number"
+          style="height: 45px; min-width: 80px; max-width: 80px; margin-right: 10px"
           v-model="selectedVote"
+          @change="updateVote"
+        />
+        <button
+          type="button"
+          class="col btn btn-outline-success"
+          style="height: 45px; min-width: 45px; max-width: 45px"
+          @click="checkOut"
         >
-          <option class="text-dark" style="display: none" disabled value="">
-            Votes
-          </option>
-          <option v-for="vote in voter.available_votes" :key="vote">
-            {{ Number(vote) }}
-          </option>
-        </select>
-        <div v-else class="row">
-          <input
-            class="form-control col"
-            type="number"
-            v-model="selectedVote"
-            @change="updateVote"
-          />
-          <button type="button" class="btn btn-outline-success" @click="checkOut">
-            <i class="fa fa-check"></i>
-          </button>
-        </div>
-      </div>
-      <div
-        class="centered ms-2 bg-white"
-        style="min-width:45px;min-height:45px"
-      >
-        <span class="fs-4">
-          {{ participant.points }}
-        </span>
+          <i class="fa fa-check"></i>
+        </button>
       </div>
     </div>
+    <div class="centered ms-2 bg-white" style="min-width: 45px; min-height: 45px">
+      <span class="fs-4">
+        {{ participant.points }}
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -207,26 +204,24 @@ export default {
 }
 
 .longtext {
-  max-width: 280px!important;
+  max-width: 280px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .player-nickname {
-  min-width:300px;
-  max-width:300px;
+  min-width: 300px;
+  max-width: 300px;
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
   .player-nickname {
-    min-width:200px;
-    max-width:200px;
+    min-width: 200px;
+    max-width: 200px;
   }
   .longtext {
-    max-width:170px;
+    max-width: 170px;
   }
 }
-
-
 </style>
