@@ -1,20 +1,13 @@
 <template>
-  <div v-if="game" class="container-flex px-0 pt-3" style="position:relative">
-
-    <div class="centered px-3 pt-3" style="position:relative">
+  <div v-if="game" class="container-flex px-0 pt-3" style="position: relative">
+    <div class="centered px-3 pt-3" style="position: relative">
       <div class="pb-3">
         <div class="">
           <div class="w-100">
-            <img
-              src="http://127.0.0.1:8000/static/logo/logo.png"
-              class="img-fluid logo"
-            >
+            <img src="http://127.0.0.1:8000/static/logo/logo.png" class="img-fluid logo" />
           </div>
           <div class="left-flex mt-5">
-            <select
-              class="form-select form-select-lg"
-              @change="updatePlayer"
-            >
+            <select class="form-select form-select-lg" @change="updatePlayer">
               <option value="" selected disabled>Please select a voter</option>
               <option v-for="name in names" :key="name.name">
                 {{ name.name }}
@@ -23,7 +16,7 @@
             <button
               type="button"
               class="btn btn-light centered ms-2"
-              style="height:48px;min-width:48px!important"
+              style="height: 48px; min-width: 48px !important"
               @click="resetGame"
             >
               <i class="fa fa-refresh fs-3" aria-hidden="true"></i>
@@ -31,25 +24,16 @@
           </div>
         </div>
         <div v-if="voter.name == 'win'" class="w-100 mt-2">
-          <button
-            type="button"
-            class="btn btn-success w-100 fs-5"
-            @click="finishGame"
-          >
+          <button type="button" class="btn btn-success w-100 fs-5" @click="finishGame">
             Finish Game
           </button>
         </div>
       </div>
     </div>
 
-
-    <div class="w-100 mt-3" style="position:relative">
-      <div class="centered w-100" style="position:relative">
-        <transition-group
-          name="flip-list"
-          tag="ul"
-          class="w-100 content-pane"
-        >
+    <div class="w-100 mt-3" style="position: relative">
+      <div class="centered w-100" style="position: relative">
+        <transition-group name="flip-list" tag="ul" class="w-100 content-pane">
           <li
             class="p-0 m-0 mb-2 player-card"
             v-for="(participant, index) in participant_list"
@@ -71,12 +55,7 @@
         </transition-group>
       </div>
     </div>
-
-
   </div>
-
-
-
 </template>
 
 <script>
@@ -166,8 +145,9 @@ export default {
         bg_1_0: "http://127.0.0.1:8000/static/audio/bg_1_0.mp3",
         bg_2_1: "http://127.0.0.1:8000/static/audio/bg_2_1.mp3",
         bg_5_3: "http://127.0.0.1:8000/static/audio/bg_5_3.mp3",
-        bg_10_6: "http://127.0.0.1:8000/static/audio/bg_10_6.mp3",
-        bg_11_inf: "http://127.0.0.1:8000/static/audio/bg_10_6.mp3",
+        bg_8_6: "http://127.0.0.1:8000/static/audio/bg_8_6.mp3",
+        bg_10_8: "http://127.0.0.1:8000/static/audio/bg_10_8.mp3",
+        bg_11_inf: "http://127.0.0.1:8000/static/audio/bg_11_inf.mp3",
         default: "http://127.0.0.1:8000/static/audio/bg.mp3",
       };
       var audio = null;
@@ -216,6 +196,7 @@ export default {
       }
       await this.awaitJingle(audio);
       if (this.bg_audio != null) {
+        this.bg_audio.loop = true;
         this.bg_audio.play();
       }
     },
@@ -334,43 +315,41 @@ option {
 }
 
 .container {
-  position:relative;
+  position: relative;
   min-height: 87vh;
   max-height: 87vh;
 }
 
-
 .content-pane {
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   /* max-height:100%; */
   max-height: calc(100vh - 330px);
   /* max-width: 100vw; */
   display: flex;
-  padding-top:0px;
-  padding-left:0px;
+  padding-top: 0px;
+  padding-left: 0px;
   flex-wrap: wrap;
   overflow-y: auto;
   align-content: flex-start;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 5px;
   /* background-color: rgb(236, 236, 236); */
 }
 
-@media (min-width:900px) {
+@media (min-width: 900px) {
   .content-pane {
     flex-direction: column;
     align-content: center;
     justify-content: center;
   }
   .logo {
-    max-width: 600px!important;
+    max-width: 600px !important;
   }
-
 }
 
-@media (max-width:1400px) {
+@media (max-width: 1400px) {
   .content-pane {
     align-content: flex-start;
     justify-content: flex-start;
@@ -378,36 +357,32 @@ option {
   }
 }
 
-
-@media (max-width:900px) {
+@media (max-width: 900px) {
   .content-pane {
     max-width: 100%;
     /* align-content: center; */
     justify-content: center;
   }
   .player-card {
-    margin-right:0;
+    margin-right: 0;
   }
-
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
   .content-pane {
     flex-direction: row;
     gap: 0px;
-    padding:0;
-    top:0px;
+    padding: 0;
+    top: 0px;
     max-height: calc(100vh - 300px);
   }
-
 
   .player-card {
     /* align-content: flex-start; */
     /* justify-content: flex-start; */
-    padding:0;
-    max-width:100%;
+    padding: 0;
+    max-width: 100%;
     /* margin-right:25px!important; */
   }
 }
-
 </style>

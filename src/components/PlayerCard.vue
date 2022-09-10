@@ -136,11 +136,11 @@ export default {
         console.log("wtf", this.participant.points, selected, this.prev_vote);
         new_par.points = this.participant.points + Number(selected) - Number(this.prev_vote);
         console.log("jingle", old, new_par.points);
-        if (selected >= 175 && !this.participant.j_100_played) {
+        if (selected >= 100 && !this.participant.j_100_played) {
           console.log("jingle 100");
           this.$emit("jingle", "100");
           new_par.j_100_played = true;
-        } else if (selected >= 125 && !this.participant.j_75_played) {
+        } else if (selected >= 75 && !this.participant.j_75_played) {
           console.log("jingle 75");
           this.$emit("jingle", "75");
           new_par.j_75_played = true;
