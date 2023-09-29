@@ -3,8 +3,13 @@
     <div class="centered px-3 pt-3" style="position: relative">
       <div class="pb-3">
         <div class="">
-          <div class="w-100">
-            <img src="http://127.0.0.1:8000/static/logo/logo.png" class="img-fluid logo" />
+          <div
+            class="w-100 mt-3"
+            >
+            <!-- <img src="http://127.0.0.1:8000/static/logo/logo.png" class="img-fluid logo" /> -->
+            <h1
+              style="color: white; font-family: 'GothamBook'; font-size: 5rem;"
+            >DISCORDVISION</h1>
           </div>
           <div class="left-flex mt-5">
             <select class="form-select form-select-lg" @change="updatePlayer">
@@ -284,7 +289,7 @@ ul {
   /* padding: 0;
   columns: 2;
   -webkit-columns: 2;
-  -moz-columns: 2;
+  -moz-columns: 2;bg-danger
   column-gap: 1em;
   margin-top: 1em;
   margin-bottom: 1em; */
@@ -311,7 +316,7 @@ option {
 }
 
 .flip-list-move {
-  transition: transform 0.4s ease;
+  transition: transform 1.6s ease;
 }
 
 .container {

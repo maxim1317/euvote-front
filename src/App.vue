@@ -41,15 +41,15 @@ export default {
 }
 
 .bg-danger {
-  background-color: #f74f50!important;
+  background-color: #D65104!important;
 }
 
 .bg-success {
-  background-color: #839d89!important;
+  background-color: #02A6A6!important;
 }
 
 .btn-success {
-  background-color: #839d89!important;
+  background-color: #02A6A6!important;
 }
 
 

@@ -44,9 +44,9 @@
         v-else
       >
         <input
-          class="col form-control"
+          class="col form-control text-dark"
           type="number"
-          style="height: 45px; min-width: 80px; max-width: 80px; margin-right: 10px"
+          style="height: 45px; min-width: 80px; max-width: 80px; margin-right: 10px; font-weight: bold; font-size: 1.2rem;"
           v-model="selectedVote"
           @change="updateVote"
         />
