@@ -110,17 +110,29 @@ export default {
       if (this.voter.name == "spectators") {
         var delta = this.participants.length - sum - 1;
         if (delta > 9 && delta <= 11) {
-          this.playBG("bg_10_8");
+          setTimeout(() => {
+            this.playBG("bg_10_8");
+          }, 40);
         } else if (delta > 6 && delta <= 9) {
-          this.playBG("bg_8_6");
+          setTimeout(() => {
+            this.playBG("bg_8_6");
+          }, 40);
         } else if (delta > 3 && delta <= 6) {
-          this.playBG("bg_5_3");
+          setTimeout(() => {
+            this.playBG("bg_5_3");
+          }, 40);
         } else if (delta > 1 && delta <= 3) {
-          this.playBG("bg_2_1");
+          setTimeout(() => {
+            this.playBG("bg_2_1");
+          }, 40);
         } else if (delta == 1) {
-          this.playBG("bg_1_0");
+          setTimeout(() => {
+            this.playBG("bg_1_0");
+          }, 40);
         } else if (delta == 0) {
-          this.playBG("win");
+          setTimeout(() => {
+            this.playBG("win");
+          }, 40);
           this.voter = {
             name: "win",
             points: 0,
@@ -192,6 +204,8 @@ export default {
         var audio = new Audio("http://127.0.0.1:8000/static/audio/jingle_100.mp3");
       } else if (type == "75") {
         audio = new Audio("http://127.0.0.1:8000/static/audio/jingle_75.mp3");
+      } else if (type == "25") {
+        audio = new Audio("http://127.0.0.1:8000/static/audio/jingle_25.mp3");
       } else {
         return;
       }
@@ -271,8 +285,10 @@ export default {
             opacity: 1,
           },
           {
-            transform: `translate(-50%, -50%) translate(${x + destinationX}px, ${y + destinationY}px) rotate(${rotation}deg)`,
-            opacity: 1,
+            transform: `translate(-50%, -50%) translate(${x + destinationX}px, ${
+              y + destinationY
+            }px) rotate(${rotation}deg)`,
+            opacity: 0,
           },
         ],
         {

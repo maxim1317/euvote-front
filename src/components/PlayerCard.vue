@@ -138,7 +138,7 @@ export default {
         console.log("jingle", old, new_par.points);
         if (selected >= 100 && !this.participant.j_100_played) {
           console.log("jingle 100");
-          this.$emit("spark", "100", "shadow", this.$refs.kek.getBoundingClientRect());
+          this.$emit("spark", "100", "emoji", this.$refs.kek.getBoundingClientRect());
           this.$emit("jingle", "100");
           new_par.j_100_played = true;
         } else if (selected >= 75 && !this.participant.j_75_played) {
@@ -146,6 +146,10 @@ export default {
           this.$emit("spark", "75", "shadow", this.$refs.kek.getBoundingClientRect());
           this.$emit("jingle", "75");
           new_par.j_75_played = true;
+        } else if (selected < 25 && !this.participant.j_25_played && this.voter.name == "spectators") {
+          console.log("jingle 25");
+          this.$emit("jingle", "25");
+          new_par.j_25_played = true;
         }
         this.$emit("update:participant", new_par);
         this.prev_vote = selected;
