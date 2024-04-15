@@ -1,5 +1,5 @@
 <template>
-  <div class="left-flex p-0 m-0 px-2" style="height: 55px">
+  <div class="left-flex p-0 m-0 px-2" ref="kek" style="height: 55px">
     <div
       class="centered bg-success fs-4 text-white fw-bold me-1"
       style="min-height: 45px !important; min-width: 45px !important"
@@ -138,10 +138,12 @@ export default {
         console.log("jingle", old, new_par.points);
         if (selected >= 100 && !this.participant.j_100_played) {
           console.log("jingle 100");
+          this.$emit("spark", "100", "shadow", this.$refs.kek.getBoundingClientRect());
           this.$emit("jingle", "100");
           new_par.j_100_played = true;
         } else if (selected >= 75 && !this.participant.j_75_played) {
           console.log("jingle 75");
+          this.$emit("spark", "75", "shadow", this.$refs.kek.getBoundingClientRect());
           this.$emit("jingle", "75");
           new_par.j_75_played = true;
         }
@@ -168,6 +170,7 @@ export default {
         participants[player_i].voted_for[this.participant.name] =
           new_votes[this.voter.name][this.participant.name].vote;
         this.$emit("update:participants", participants);
+        this.checkOut();
       } else {
         console.log("222");
         new_par = this.participant;
@@ -195,7 +198,7 @@ export default {
   },
   created() {},
 };
-</script>
+</script>vue3 add
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

@@ -15,7 +15,7 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: GothamBook, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -41,11 +41,14 @@ export default {
 }
 
 .bg-danger {
-  background-color: #D65104!important;
+  /* background-color: #D65104!important; */
+  background-color: #4F9CBF!important;
 }
 
 .bg-success {
-  background-color: #02A6A6!important;
+  /* background-color: #02A6A6!important; */
+  background-color: #012A45!important;
+
 }
 
 .btn-success {

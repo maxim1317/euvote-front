@@ -3,13 +3,11 @@
     <div class="centered px-3 pt-3" style="position: relative">
       <div class="pb-3">
         <div class="">
-          <div
-            class="w-100 mt-3"
-            >
+          <div class="w-100 mt-3">
             <!-- <img src="http://127.0.0.1:8000/static/logo/logo.png" class="img-fluid logo" /> -->
-            <h1
-              style="color: white; font-family: 'GothamBook'; font-size: 5rem;"
-            >DISCORDVISION</h1>
+            <h1 style="color: white; font-family: 'EC'; font-size: 5rem; font-weight: bold">
+              DISCORDVISION
+            </h1>
           </div>
           <div class="left-flex mt-5">
             <select class="form-select form-select-lg" @change="updatePlayer">
@@ -55,6 +53,7 @@
               :participants="participants"
               @checked="checked"
               @jingle="playJingle"
+              @spark="pop"
             />
           </li>
         </transition-group>
@@ -205,6 +204,88 @@ export default {
         this.bg_audio.play();
       }
     },
+    pop(e, type, target) {
+      let amount = 30;
+      console.log("here", e, target, type);
+      switch (type) {
+        case "shadow":
+        case "line":
+          amount = 60;
+          break;
+      }
+      // Quick check if user clicked the button using a keyboard
+      // if (e.clientX === 0 && e.clientY === 0) {
+      const bbox = target;
+      const x = bbox.left + bbox.width / 2;
+      const y = bbox.top + bbox.height / 2;
+      30;
+      for (let i = 0; i < amount; i++) {
+        // We call the function createParticle 30 times
+        // We pass the coordinates of the button for x & y values
+        this.createParticle(x, y, type);
+      }
+    },
+    createParticle(x, y, type) {
+      console.log("createParticle", x, y, type);
+      const particle = document.createElement("particle");
+      document.body.appendChild(particle);
+      let width = Math.floor(Math.random() * 30 + 8);
+      let height = width;
+      let destinationX = (Math.random() - 0.5) * 300;
+      let destinationY = (Math.random() - 0.5) * 300;
+      let rotation = Math.random() * 520;
+      let delay = Math.random() * 200;
+      var color;
+
+      switch (type) {
+        case "emoji":
+          particle.innerHTML = ["❤", "🧡", "💛", "💚", "💙", "💜", "🤎"][
+            Math.floor(Math.random() * 7)
+          ];
+          particle.style.fontSize = `${Math.random() * 24 + 10}px`;
+          width = height = "auto";
+          break;
+        case "shadow":
+          color = `hsl(${Math.random() * 90 + 90}, 70%, 50%)`;
+          particle.style.boxShadow = `0 0 ${Math.floor(Math.random() * 10 + 10)}px ${color}`;
+          particle.style.background = color;
+          particle.style.borderRadius = "50%";
+          width = height = Math.random() * 5 + 4;
+          break;
+        case "line":
+          color = `hsl(${Math.random() * 90 + 90}, 70%, 50%)`;
+          particle.style.background = "black";
+          height = 1;
+          rotation += 1000;
+          delay = Math.random() * 1000;
+          break;
+      }
+
+      particle.style.width = `${width}px`;
+      particle.style.height = `${height}px`;
+
+      const animation = particle.animate(
+        [
+          {
+            transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(0deg)`,
+            opacity: 1,
+          },
+          {
+            transform: `translate(-50%, -50%) translate(${x + destinationX}px, ${y + destinationY}px) rotate(${rotation}deg)`,
+            opacity: 1,
+          },
+        ],
+        {
+          duration: Math.random() * 1000 + 5000,
+          easing: "cubic-bezier(0, .9, .57, 1)",
+          delay: delay,
+        }
+      );
+      animation.onfinish = this.removeParticle;
+    },
+    removeParticle(e) {
+      e.srcElement.effect.target.remove();
+    },
     unpackGame(game) {
       this.participants = game.participants;
       if (game.audio_name != null) {
@@ -226,6 +307,7 @@ export default {
       });
       this.game = game;
       console.log(this.game);
+      this.participants.forEach((p) => (p.is_checked = false));
     },
     loadGame() {
       var url = new URL("http://127.0.0.1:8000/game");
@@ -267,6 +349,9 @@ export default {
       } else {
         this.is_voting = false;
       }
+      this.participants.forEach((participant) => {
+        participant.is_checked = false;
+      });
       // alert(this.voter)
     },
     resetGame() {
@@ -281,6 +366,18 @@ export default {
   },
 };
 </script>
+
+<style>
+particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+</style>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
